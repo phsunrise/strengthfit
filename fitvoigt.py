@@ -48,9 +48,7 @@ for o, a in opts:
         sys.exit(0)
 
 ## import parameters
-from info import pads, hkl_list, diamond_lines
-from info import chi_deg, a0, E_xray, wavelength
-from info import npt_rad, npt_azim 
+from parameters import *
 
 ## read data
 try:
