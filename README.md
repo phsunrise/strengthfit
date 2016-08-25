@@ -15,16 +15,16 @@ be caught in future revisions.
 After cloning the repository, change the directory setting
 in info.py before running any program.
 
-* data\_dir: should point to the "LL20 data" folder in Dropbox
-* plot\_dir: can be any folder where plots can be saved
+* **data\_dir**: should point to the "LL20 data" folder in Dropbox
+* **plot\_dir**: can be any folder where plots can be saved
 
 ## Voigt fitting
 The fitvoigt.py script can run in three modes: TEST (default or -t), 
 MASK (-m), and FIT (-f). To run it, provide the run number
 and the mode option, *e.g.*,
-'''
+```
 python fitvoigt.py -r 174 -m
-'''
+```
 
 ### TEST mode (-t)
 This mode lets the user experiment with different values
@@ -34,6 +34,7 @@ shown as maximum intensity on the display).
 
 The plotting window is detached in this mode to allow
 command-line input. The input formats are:
+
 1. x %f  
 To change exx to %f
 
@@ -80,7 +81,7 @@ To (temporarily) remove/recover the mask in display.
 * v  
 To save the mask.
 
-* q 
+* q  
 To quit (without saving).
 
 * h  
