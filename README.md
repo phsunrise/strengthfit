@@ -40,16 +40,16 @@ To change exx to %f
 2. z %f  
 To change ezz to %f
 
-3. c %f
+3. c %f  
 To change cutoff level to %f (*e.g.*, if c 0.05 is entered,
  then all intensities less than 0.05\*max intensitiy will
  be set to 0 and shown as max intensity on display)
 
-4. q
+4. q  
 To save and quit. The range for FIT mode will also be saved
 as 0.8 and 1.2 of the saved exx/ezz values.
 
-5. h
+5. h  
 To display help.
 
 ### MASK mode (-m)
@@ -61,9 +61,9 @@ The user is allowed to undo the area selections one by one,
 if they are done within the session. If the mask to start
 with (read from the run%d\_mask.npy) has unnecessary areas,
 the user needs to quit and run 
-'''
+```
 python fitvoigt.py -r RUN# --dm
-'''
+```
 to delete the mask file.
 
 After the data is plotted, the user can either select (on
@@ -80,10 +80,10 @@ To (temporarily) remove/recover the mask in display.
 * v  
 To save the mask.
 
-* q
+* q 
 To quit (without saving).
 
-* h
+* h  
 To display help.
 
 
@@ -92,9 +92,9 @@ This mode lets the user specify the fitting range and then
 does the fitting. The first part is very similar to TEST
 mode, except that for exx and ezz, a range needs to be
 specified. The format is
-'''
+```
 x %f %f
-'''
+```
 To change the range (exxlow, exxhigh), and similar for ezz.
  The two lines on display use (exxlow, ezzlow) and (exxhigh,
  ezzhigh), respectively.
