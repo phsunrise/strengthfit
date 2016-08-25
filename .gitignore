@@ -1,0 +1,5 @@
+## info file, since the path should be dependent on machine
+info.py
+
+## all .pyc files
+*.pyc
