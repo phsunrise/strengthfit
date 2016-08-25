@@ -1,6 +1,7 @@
 import pyFAI, fabio
 import os
 import numpy as np
+import glob
 from info import *
 
 runstart, runend = 0, 300 
@@ -8,7 +9,7 @@ for run in np.arange(runstart, runend+1):
     if run == 121 or not os.path.isdir(data_dir+"run%d"%run):
         print "No data for run %d!"%run
         continue 
-    elif os.path.isfile(data_dir+"converted/run%d_data.npy"%run):
+    elif len(glob.glob(data_dir+"converted/run%d_evt*_data.npy"%run)) > 0:
         print "Run %d already converted! Skipping..."%run
         continue
 
@@ -39,7 +40,7 @@ for run in np.arange(runstart, runend+1):
         else:
             I += I_i
     I = np.fliplr(I.T)
-    np.save(data_dir+"converted/run%d_data.npy"%run, I)
+    np.save(data_dir+"converted/run%d_evt%d_data.npy"%(run, i_evt), I)
     print "data saved"
 
 phi_grid, tth_grid = np.meshgrid(phi, tth)

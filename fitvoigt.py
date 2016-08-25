@@ -3,7 +3,7 @@ matplotlib.use("Qt4Agg") # for mac osx
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
-import os, sys, getopt
+import os, sys, getopt, glob, re
 import pickle
 import info, voigt
 
@@ -54,10 +54,12 @@ from info import npt_rad, npt_azim
 
 ## read data
 try:
-    I = np.load(info.data_dir+"converted/run%d_data.npy"%run)
+    fname = glob.glob(info.data_dir+"converted/run%d_evt*_data.npy"%run)[0]
+    I = np.load(fname)
+    i_evt = int(re.search('(?<=evt)\d+', fname).group(0))
     maxI = np.max(I)
     print "Data loaded"
-except IOError:
+except IndexError:
     print "data for run %d does not exist" % run
     sys.exit(0)
 coord = np.load(info.data_dir+"converted/coordinates.npz")
