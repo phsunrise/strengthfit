@@ -1,0 +1,2 @@
+interesting runs: 118
+run 121: bad .tif files
