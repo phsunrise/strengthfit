@@ -3,6 +3,7 @@ import os
 import numpy as np
 import glob
 from info import *
+from parameters import *
 
 runstart, runend = 0, 300 
 for run in np.arange(runstart, runend+1):

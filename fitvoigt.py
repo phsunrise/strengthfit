@@ -479,11 +479,17 @@ elif mode == 'FIT':
         for i_ezz, ezz in enumerate(ezz_array):
             dist_grid = []
             ## get all three lines, calculate weighted squared distance
-            for h, k, l in hkl_list: 
-                d0 = a0 / np.sqrt(h**2+k**2+l**2)
-                _phi_array, tth_voigt = voigt.voigt(chi_deg, exx, exx, ezz, \
-                        d0, wavelength, phi_array=phi/180.*np.pi, tol=1.e-12)
-                dist_grid.append(np.abs(tth_grid/180.*np.pi-np.tile(tth_voigt, [npt_rad,1])))
+            try:
+                for h, k, l in hkl_list: 
+                    d0 = a0 / np.sqrt(h**2+k**2+l**2)
+                        _phi_array, tth_voigt = voigt.voigt(chi_deg, exx, exx, ezz, \
+                                d0, wavelength, phi_array=phi/180.*np.pi, tol=1.e-12)
+                    dist_grid.append(np.abs(tth_grid/180.*np.pi-np.tile(tth_voigt, [npt_rad,1])))
+            except RuntimeError as err:
+                print err.args,
+                print "skipping exx=%f, ezz=%f" % (exx, ezz)
+                weightedsum[i_ezz, i_exx] = None 
+                continue
             ## for each point, find the minimal distance from the three tth_voigt values
             dist_grid = np.array(dist_grid)
             dist_grid = np.amin(dist_grid, axis=0)
