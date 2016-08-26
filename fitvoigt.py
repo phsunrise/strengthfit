@@ -482,8 +482,8 @@ elif mode == 'FIT':
             try:
                 for h, k, l in hkl_list: 
                     d0 = a0 / np.sqrt(h**2+k**2+l**2)
-                        _phi_array, tth_voigt = voigt.voigt(chi_deg, exx, exx, ezz, \
-                                d0, wavelength, phi_array=phi/180.*np.pi, tol=1.e-12)
+                    _phi_array, tth_voigt = voigt.voigt(chi_deg, exx, exx, ezz, \
+                            d0, wavelength, phi_array=phi/180.*np.pi, tol=1.e-12)
                     dist_grid.append(np.abs(tth_grid/180.*np.pi-np.tile(tth_voigt, [npt_rad,1])))
             except RuntimeError as err:
                 print err.args,
