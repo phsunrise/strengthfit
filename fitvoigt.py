@@ -444,28 +444,17 @@ elif mode == 'FIT':
     plt.ioff()
     plt.close()
     
-    fig = plt.figure(figsize=(9, 12))
-    ax1 = fig.add_subplot(2,1,1)
-    ax2 = fig.add_subplot(2,1,2)
     cutoff = cutoff_level*maxI
     I1 = np.copy(I)
     I1[I1<cutoff] = 0.
     I1[mask_orig] = 0.
-    im1 = ax1.imshow(I1, origin='lower', aspect='auto',\
-               extent=[min(phi), max(phi), min(tth), max(tth)])
-    divider1 = make_axes_locatable(ax1)
-    cax1 = divider1.append_axes("right", size="10%", pad=0.05)
-    ### draw unshocked diamond lines
-    #for line, line_tth in diamond_lines.iteritems():
-    #    ax1.axhline(y=line_tth, ls='--', color='r')
-    #    ax1.text(x=185, y=line_tth, s=line, color='r')
 
     while True:
         val = raw_input("Number of steps (x and z): ")
         try:
             exx_n, ezz_n = val.split()
-            exx_n = int(exx_n)
-            ezz_n = int(ezz_n)
+            exx_n = int(exx_n)+1
+            ezz_n = int(ezz_n)+1
             break
         except ValueError:
             print "Invalid input! Try again"
@@ -504,7 +493,7 @@ elif mode == 'FIT':
             
         print "done exx =", exx
 
-    ## now save to parameter file and plot the optimum  
+    ## now save to parameter file and plot the data with best fit 
     print "Best fit: exx=%.4f, ezz=%.4f, weightedsum=%.1f" % (optim_res[1], 
                                                     optim_res[2], optim_res[0])
     fname = info.data_dir+"parameters/run%d.pickle"%run
@@ -514,6 +503,19 @@ elif mode == 'FIT':
                 'ezzlow':optim_res[2]*0.8, 'ezzhigh':optim_res[2]*1.2,\
                 'cutoff':cutoff_level}, f)
         print "Saved parameters to %s" % fname
+
+    fig = plt.figure(figsize=(9, 12))
+    ax1 = fig.add_subplot(2,1,1)
+    ax2 = fig.add_subplot(2,1,2)
+    I1[I1<cutoff] = maxI
+    im1 = ax1.imshow(I1, origin='lower', aspect='auto',\
+               extent=[min(phi), max(phi), min(tth), max(tth)])
+    divider1 = make_axes_locatable(ax1)
+    cax1 = divider1.append_axes("right", size="10%", pad=0.05)
+    ### draw unshocked diamond lines
+    #for line, line_tth in diamond_lines.iteritems():
+    #    ax1.axhline(y=line_tth, ls='--', color='r')
+    #    ax1.text(x=185, y=line_tth, s=line, color='r')
     for h, k, l in hkl_list: 
         d0 = a0 / np.sqrt(h**2+k**2+l**2)
         _phi_array, tth_voigt = voigt.voigt(chi_deg, \
