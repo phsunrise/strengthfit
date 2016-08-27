@@ -107,7 +107,7 @@ if mode == 'TEST':
                extent=[min(phi), max(phi), min(tth), max(tth)])
     divider1 = make_axes_locatable(ax1)
     cax1 = divider1.append_axes("right", size="10%", pad=0.05)
-    lines = [] 
+    lines = []
     for h, k, l in hkl_list: 
         d0 = a0 / np.sqrt(h**2+k**2+l**2)
         _phi_array, tth_voigt = voigt.voigt(chi_deg, exx, exx, ezz,\
@@ -386,6 +386,7 @@ elif mode == 'FIT':
                 cutoff = cutoff_level*maxI
                 I1 = np.copy(I)
                 I1[I1<cutoff] = maxI
+                I1[mask_orig] = maxI
                 im1.set_data(I1)
                 plt.draw()
                 continue
@@ -504,9 +505,9 @@ elif mode == 'FIT':
                 'cutoff':cutoff_level}, f)
         print "Saved parameters to %s" % fname
 
-    fig = plt.figure(figsize=(9, 12))
-    ax1 = fig.add_subplot(2,1,1)
-    ax2 = fig.add_subplot(2,1,2)
+    fig = plt.figure(figsize=(18, 6))
+    ax1 = fig.add_subplot(1,2,1)
+    ax2 = fig.add_subplot(1,2,2)
     I1[I1<cutoff] = maxI
     im1 = ax1.imshow(I1, origin='lower', aspect='auto',\
                extent=[min(phi), max(phi), min(tth), max(tth)])
@@ -541,6 +542,7 @@ elif mode == 'FIT':
     ax2.set_ylabel(r"$\epsilon_{zz}$")
     fig.colorbar(im2, cax=cax2)
 
+    plt.tight_layout()
     fig.savefig(info.plot_dir+"run%d_cutoff_%.3f.pdf"%(run, cutoff_level))
     plt.show()
     plt.close()
