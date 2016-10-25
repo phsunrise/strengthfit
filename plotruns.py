@@ -28,11 +28,11 @@ for run in range(174, 200):
         img = fabio.open(
           info.data_dir+"run%d/run_%d_evt_%d_%s.tif"%(run,run,i_evt,pad)).data
         if i_pad in [0,1]:
-            img = img.T
+            img = np.rot90(img, 3) 
         elif i_pad in [2]:
-            img = np.flipud(img)
+            img = np.rot90(img, 2) 
         elif i_pad in [3,4]:
-            img = np.fliplr(img)
+            pass
         I_i, tth, chi = ai.integrate2d(img, npt_rad=500, npt_azim=500, \
                    radial_range=(20., 110.), azimuth_range=(-180., 180.),\
                    unit='2th_deg')
@@ -44,7 +44,7 @@ for run in range(174, 200):
     fig = plt.figure(figsize=(15, 20))
     ax1 = fig.add_subplot(2,1,1)
     I[I>0.3*np.max(I)] = 0.5*np.max(I)
-    ax1.imshow(np.fliplr(I.T), origin='lower', aspect='auto',\
+    ax1.imshow(I.T, origin='lower', aspect='auto',\
                extent=[min(chi), max(chi), min(tth), max(tth)])
     ## draw unshocked diamond lines
     for line, line_tth in diamond_lines.iteritems():

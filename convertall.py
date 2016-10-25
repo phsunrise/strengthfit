@@ -28,11 +28,11 @@ for run in np.arange(runstart, runend+1):
         img = fabio.open(
           data_dir+"run%d/run_%d_evt_%d_%s.tif"%(run,run,i_evt,pad)).data
         if i_pad in [0,1]:
-            img = img.T
+            img = np.rot90(img,3)
         elif i_pad in [2]:
-            img = np.flipud(img)
+            img = np.rot90(img,2)
         elif i_pad in [3,4]:
-            img = np.fliplr(img)
+            pass
         I_i, tth, phi = ai.integrate2d(img, npt_rad=npt_rad, npt_azim=npt_azim, \
                    radial_range=(20., 110.), azimuth_range=(-180., 180.),\
                    unit='2th_deg')
@@ -40,7 +40,7 @@ for run in np.arange(runstart, runend+1):
             I = I_i
         else:
             I += I_i
-    I = np.fliplr(I.T)
+    I = I.T
     np.save(data_dir+"converted/run%d_evt%d_data.npy"%(run, i_evt), I)
     print "data saved"
 
