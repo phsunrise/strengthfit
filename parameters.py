@@ -1,7 +1,8 @@
 timeppix = {1: 0.00939001, 2: 0.00999682} 
         # time per pixel in ns for VISAR 1 and 2
 
-pads = ['Cspad.0', 'Cspad.1', 'Cspad.2', 'Cspad2x2.1']
+pads = ['Cspad.0', 'Cspad.1', 'Cspad.2', \
+        'Cspad2x2.1', 'Cspad2x2.2']
 hkl_list = [(1,1,1), (2,2,0), (3,1,1), (4,0,0)]
 
 ## diamond lines (tth values) for 10 keV
