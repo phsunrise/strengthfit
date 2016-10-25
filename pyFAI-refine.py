@@ -1,3 +1,9 @@
+'''
+This script allows user to refine the calibration.
+To run the script:
+    python pyFAI-refine.py [calibration image] -c [calibrant] -f [.poni file to be refined] 
+The rest should be straightforward
+'''
 import matplotlib
 matplotlib.use('Qt4Agg')
 import pyFAI, fabio
